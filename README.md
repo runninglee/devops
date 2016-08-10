@@ -1,4 +1,4 @@
-# osx
-Linux shell
+# Linux Command
 
-## shell
+
+## ps
