@@ -85,6 +85,7 @@
 
 - [x] - List Commands Category
 - [x] - Run Shell Scripts
+- [x] - Regular Expression
 
 ## TODO:
 

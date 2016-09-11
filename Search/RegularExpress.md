@@ -86,3 +86,5 @@ $     The end of the line.
 
 
 [Regular Expressions - Cheet Sheet](http://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-cheat-sheet.php)
+
+[Reference Resources](http://ryanstutorials.net/regular-expressions-tutorial/)
