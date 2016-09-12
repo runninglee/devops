@@ -1,7 +1,7 @@
 ### Supervisor Service
 ---
 
-#### Install
+### Install
 
 `sudo apt-get update`
 `sudo apt-get install supervisor`
