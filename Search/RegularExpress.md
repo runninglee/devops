@@ -5,10 +5,10 @@
 **Basic Metacharacters**
 
 ```
-- .    (dot or fullstop) Any character.
-- [ ]  Range. Match any of these characters.
-- [^ ] Range. Match any character which is not one of these.
-- \    (backslash) Escape. Remove or add special meaning to a character.
+- .     Dot or fullstop. Any character.
+- [ ]   Range. Match any of these characters.
+- [^ ]  Range. Match any character which is not one of these.
+- \     Backslash Escape. Remove or add special meaning to a character.
 ```
 
 **Multipliers**

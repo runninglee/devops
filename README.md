@@ -86,6 +86,7 @@
 - [x] - List Commands Category
 - [x] - Run Shell Scripts
 - [x] - Regular Expression
+- [x] - Install && Usage Supervisor
 
 ## TODO:
 
