@@ -87,6 +87,7 @@
 - [x] - Run Shell Scripts
 - [x] - Regular Expression
 - [x] - Install && Usage Supervisor
+- [x] - Git
 
 ## TODO:
 
