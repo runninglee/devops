@@ -86,12 +86,113 @@
 
 #####  修改用户及用户组
 
-* ```usermod```，用于修改用户
+* ```usermod```，```dscl```, 用于修改用户
 * 详细见 ```man usermod```
+
+```
+    常用参数
+       -c, --comment COMMENT
+          "更新用户的配置文件的描述信息为COMMENT"
+
+       -d, --home HOME_DIR
+           "指定用户的登陆目录为HOME_DIR"
+
+       -e, --expiredate EXPIRE_DATE
+           "设置用户登陆的过期时间，时间格式为YYYY-MM-DD，如果EXPIRE_DATE参数为空，将禁止设置用户过期时间"
+         
+       -f, --inactive INACTIVE
+           The number of days after a password expires until the account is permanently disabled.
+
+           A value of 0 disables the account as soon as the password has expired, and a value of -1
+           disables the feature.
+
+           This option requires a /etc/shadow file. A /etc/shadow entry will be created if there were none.
+
+       -g, --gid GROUP
+           Any file from the user's home directory owned by the previous primary group of the user will be
+           owned by this new group.
+
+           The group ownership of files outside of the user's home directory must be fixed manually.
+           "指定用户所属组为GROUP，且GROUP必须存在，该用户所属组下面的家目录的文件所有权将被GROUP拥有"
+           
+           -G, --groups GROUP1[,GROUP2,...[,GROUPN]]]
+           A list of supplementary groups which the user is also a member of. Each group is separated from
+           the next by a comma, with no intervening whitespace. The groups are subject to the same
+           restrictions as the group given with the -g option.
+
+           If the user is currently a member of a group which is not listed, the user will be removed from
+           the group. This behaviour can be changed via the -a option, which appends the user to the
+           current supplementary group list.
+
+       -l, --login NEW_LOGIN
+           The name of the user will be changed from LOGIN to NEW_LOGIN. Nothing else is changed. In
+           particular, the user's home directory or mail spool should probably be renamed manually to
+           reflect the new login name.
+
+       -L, --lock
+           Lock a user's password. This puts a '!' in front of the encrypted password, effectively
+           disabling the password. You can't use this option with -p or -U.
+
+           Note: if you wish to lock the account (not only access with a password), you should also set the
+           EXPIRE_DATE to 1.
+
+       -m, --move-home
+           Move the content of the user's home directory to the new location.
+
+           This option is only valid in combination with the -d (or --home) option.
+
+           usermod will try to adapt the ownership of the files and to copy the modes, ACL and extended
+           attributes, but manual changes might be needed afterwards.
+
+       -o, --non-unique
+           When used with the -u option, this option allows to change the user ID to a non-unique value.
+
+       -p, --password PASSWORD
+           The encrypted password, as returned by crypt(3).
+
+           Note: This option is not recommended because the password (or encrypted password) will be
+           visible by users listing the processes.
+
+           The password will be written in the local /etc/passwd or /etc/shadow file. This might differ
+           from the password database configured in your PAM configuration.
+
+           You should make sure the password respects the system's password policy.
+
+       -R, --root CHROOT_DIR
+           Apply changes in the CHROOT_DIR directory and use the configuration files from the CHROOT_DIR
+           directory.
+           
+            -s, --shell SHELL
+           The name of the user's new login shell. Setting this field to blank causes the system to select
+           the default login shell.
+
+       -u, --uid UID
+           The new numerical value of the user's ID.
+
+           This value must be unique, unless the -o option is used. The value must be non-negative.
+
+           The user's mailbox, and any files which the user owns and which are located in the user's home
+           directory will have the file user ID changed automatically.
+
+           The ownership of files outside of the user's home directory must be fixed manually.
+
+           No checks will be performed with regard to the UID_MIN, UID_MAX, SYS_UID_MIN, or SYS_UID_MAX
+           from /etc/login.defs.
+
+     
+
+
+
+```
+
 * ```groupmod```，用户修改用户组
 * 详细见```man groupmod```
 
 
 ###### 案列
+
+1. 修改用户名
+
+> usermod
 
 #### TODO
