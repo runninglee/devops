@@ -84,20 +84,39 @@
 * 详情查看```man + {userdel|groupdel}```
 
 
+```
+    "TODO"
+```
+
+
 #####  修改用户及用户组
 
 * ```usermod```，```dscl```, 用于修改用户
+
 * 详细见 ```man usermod```
 
 ```
     常用参数
        -c, --comment COMMENT
+           The new value of the user's password file comment field. It is normally
+           modified using the chfn(1) utility.
           "更新用户的配置文件的描述信息为COMMENT"
 
        -d, --home HOME_DIR
+           The user's new login directory.
+           If the -m option is given, the contents of the current home directory will
+           be moved to the new home directory, which is created if it does not already
+           exist.
            "指定用户的登陆目录为HOME_DIR"
 
        -e, --expiredate EXPIRE_DATE
+           The date on which the user account will be disabled. The date is specified
+           in the format YYYY-MM-DD.
+
+           An empty EXPIRE_DATE argument will disable the expiration of the account.
+
+           This option requires a /etc/shadow file. A /etc/shadow entry will be created
+           if there were none.
            "设置用户登陆的过期时间，时间格式为YYYY-MM-DD，如果EXPIRE_DATE参数为空，将禁止设置用户过期时间"
          
        -f, --inactive INACTIVE
@@ -178,21 +197,75 @@
 
            No checks will be performed with regard to the UID_MIN, UID_MAX, SYS_UID_MIN, or SYS_UID_MAX
            from /etc/login.defs.
-
-     
-
-
-
 ```
 
 * ```groupmod```，用户修改用户组
+
+
 * 详细见```man groupmod```
 
+```
+常用参数
 
-###### 案列
+       -g, --gid GID
+           The group ID of the given GROUP will be changed to GID.
+
+           The value of GID must be a non-negative decimal integer. This value must be
+           unique, unless the -o option is used.
+
+           Users who use the group as primary group will be updated to keep the group as
+           their primary group.
+
+           Any files that have the old group ID and must continue to belong to GROUP,
+           must have their group ID changed manually.
+
+           No checks will be performed with regard to the GID_MIN, GID_MAX, SYS_GID_MIN,
+           or SYS_GID_MAX from /etc/login.defs.
+
+       -n, --new-name NEW_GROUP
+           The name of the group will be changed from GROUP to NEW_GROUP name.
+
+       -o, --non-unique
+           When used with the -g option, allow to change the group GID to a non-unique
+           value.
+
+       -p, --password PASSWORD
+           The encrypted password, as returned by crypt(3).
+
+           Note: This option is not recommended because the password (or encrypted
+           password) will be visible by users listing the processes.
+
+          You should make sure the password respects the system's password policy.
+
+```
+
+###### usermod案列
 
 1. 修改用户名
 
-> usermod
+> usermod -l new_name
 
-#### TODO
+2. 修改密码
+
+> usermod -p new_password
+
+3. 变更所属组
+
+> usermod -g exist_group
+
+4. 设置家目录
+
+> usermod -d new_home
+
+5. 综合(变更用户到nginx组，同时设置家目录为website，更新ssh密码)
+
+> usermode -g nginx -d website -p ssh_password
+
+###### groupmod案列
+
+1. 修改组名
+
+> groupmod -g new_group_name
+
+
+[Contanct Me](mailto:lihui870920@gmail.com)
