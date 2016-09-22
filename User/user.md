@@ -79,7 +79,7 @@
 
 ##### 删除用户和用户组
 
-* ```userdel```,```groupdel```
+* 命令```userdel，groupdel```
 
 * 详情查看```man + {userdel|groupdel}```
 
