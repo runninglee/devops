@@ -36,7 +36,7 @@
 ```
 
 
-::smiley:
+:smiley:
 
 **Configure your git info**
 
@@ -66,6 +66,7 @@
 ```
 
 
-**Run now**
+## License
 
-[Contanct Me](mailto:lihui870920@gmail.com)
+[MIT License](https://opensource.org/licenses/mit-license.html). ©  [Running Lee](mailto:lihui870920@gmail.com)
+
