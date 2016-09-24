@@ -15,7 +15,7 @@
 
 **Make a new project**
 
-:)
+:smiley:
 
 **Generate a new project with composer or npm**
 
@@ -36,7 +36,7 @@
 ```
 
 
-:):):)
+::smiley:
 
 **Configure your git info**
 
