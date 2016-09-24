@@ -32,9 +32,5 @@ TODO: 贡献者描述
 
 ## License
 
-TODO: 证书描述
-
-
-
-#### [Reference](https://gist.github.com/zenorocha/4526327)
+[MIT License](https://opensource.org/licenses/mit-license.html). © Running Lee
 
