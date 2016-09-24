@@ -1,5 +1,6 @@
-# grep
+# pssh
 
+批量处理工具
 
 
 ## Usage
