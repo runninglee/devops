@@ -84,10 +84,6 @@
 * 详情查看```man + {userdel|groupdel}```
 
 
-```
-    "TODO"
-```
-
 
 #####  修改用户及用户组
 
@@ -224,10 +220,10 @@
 
        -n, --new-name NEW_GROUP
            The name of the group will be changed from GROUP to NEW_GROUP name.
+           " 修改组的名称为NEW_GROUP"
 
        -o, --non-unique
-           When used with the -g option, allow to change the group GID to a non-unique
-           value.
+           When used with the -g option, allow to change the group GID to a non-unique value.
 
        -p, --password PASSWORD
            The encrypted password, as returned by crypt(3).
@@ -267,5 +263,6 @@
 
 > groupmod -g new_group_name
 
+## License
 
-[Contanct Me](mailto:lihui870920@gmail.com)
+[MIT License](https://opensource.org/licenses/mit-license.html). © Running Lee
