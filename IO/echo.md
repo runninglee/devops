@@ -61,3 +61,8 @@ else
 	echo "Great, $filename has been created!"
 fi
 ```
+
+**打印输出彩色**
+
+
+
