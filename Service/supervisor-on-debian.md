@@ -1,14 +1,15 @@
 ### Supervisor Service
----
 
-### Install
+debian下安装supervisor,使用于laravel队列任务
+
+### 安装
 
 `sudo apt-get update`
 `sudo apt-get install supervisor`
 
-###  Configuration
+###  配置管理
 
-**create configure file**
+**创建配置文件**
 
 > cd /etc/supervisor/conf.d && cat yourproject.conf
 
@@ -25,28 +26,32 @@ stdout_logfile=/home/forge/app.com/worker.log
 
 ```
 
-**make it work**
+**管理**
 
 > /etc/init.d/supervisord {start|stop|restart|force-reload|status|force-stop}   
 
-`server side (if you can't set the dot conf file, you won't start the supervisord)`
+`必须配置yourproject.conf,否则服务端supervisord启动不了`
 
 > sudo supervisorctl reread
 
-`client side reload configure file`      
+`重新加载客户端配置`      
 
 > sudo supervisorctl update  
 
-`client side update configure file`
+`更新客户端配置`
 
 
-### Test
+### 测试
 
 
  TODO：Let't code in laravel
 
 
-### How to renew？
+### 重启服务
 
 > php artisan queue:restart
 
+
+## License
+
+[MIT License](https://opensource.org/licenses/mit-license.html). ©  [Running Lee](mailto:lihui870920@gmail.com)

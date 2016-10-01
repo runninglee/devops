@@ -1,4 +1,9 @@
-### Install
+# supervisor
+
+Mac下安装supervisor进程管理工具，方便系统监控控制服务进程
+
+
+### 安装
 
 ```
 brew update
@@ -7,7 +12,7 @@ brew install supervisor
 
 ```
 
-### Configure
+### 配置
 
 ```
 
@@ -17,7 +22,7 @@ sudo supervisorctl -c /etc/supervisord.conf
 
 ```
 
-### Control
+### 管理
 
 ```
 
@@ -26,7 +31,7 @@ sudo brew services {start | stop | restart} supervisord
 
 ```
 
-### Update Configure
+### 更新配置
 
 ```
 sudo brew services stop supervisord
@@ -36,7 +41,7 @@ supervisord> stop all
 ```
 
 
-### Make it work
+### 启动
 
 ```
 sudo brew services start supervisord
@@ -47,17 +52,20 @@ supervisord>start (your queue worker)
 
 ```
 
-### Help Command
+### 帮助
 
 ```
 supervisord> help
 
 ```
 
-**Commands List**
+**命令列表**
 
 `add` `exit` `open` `reload` `restart`  `start` `tail` `avail`
 
 `version` `update` `reread` `clear` `status` `mailtail` `stop`
 
-and so on ...
+
+## License
+
+[MIT License](https://opensource.org/licenses/mit-license.html). ©  [Running Lee](mailto:lihui870920@gmail.com)
