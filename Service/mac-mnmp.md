@@ -1,18 +1,18 @@
-# Mac Mamp环境开发
+# MAC下Nginx,MySQL,PHP环境开发
 
-Brew安装Nginx,PHP, MySQL, Redis, Composer
+brew快速安装nginx,mysql,php,redis,composer,git等常用的服务及管理命令
 
-## Usage
+## 安装方式
 
 确定安装Xcode后，安装命令行工具
 
 > xcode-select --install
 
-安装Brew
+安装brew
 
 > ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-安装Nginx
+安装nginx
 
 > brew install nginx
 
@@ -24,9 +24,9 @@ Brew安装Nginx,PHP, MySQL, Redis, Composer
 
 nginx的配置文件中执行的用户，用户组，改成当前用户及用户组即可
 
-访问地址测试
+访问地址测试 http://127.0.0.1
 
-安装PHP70
+安装php70
 
 > brew install homebrew/php/php70 homebrew/php/php70-imagick homebrew/php/php70-redis homebrew/php/php70-swoole
 
@@ -38,7 +38,7 @@ nginx的配置文件中执行的用户，用户组，改成当前用户及用户
 
 完成系统开启自启动
 
-安装MySQL5.7
+安装mysql5.7
 
 > brew install mysql
 
@@ -46,7 +46,7 @@ nginx的配置文件中执行的用户，用户组，改成当前用户及用户
 
 > brew services [start | stop | restart] mysql
 
-安装Redis
+安装redis
 
 >brew install redis
 
@@ -63,12 +63,9 @@ nginx的配置文件中执行的用户，用户组，改成当前用户及用户
 >brew services list
 
 
+## 版本
 
-
-## History
-
-V1:快速配置安装MAMP环境
-
+V1:快速配置安装MNMP环境及常用的服务
 
 
 ## License
