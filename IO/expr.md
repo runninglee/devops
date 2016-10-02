@@ -4,20 +4,52 @@
 
 ## Usage
 
-TODO: 描述如何使用命令
+* expr1 | expr2
+
+表达式或
+
+* expr2 & expr2
+
+表达式与
+
+* expr1 {=, >, >=, <, <=, !=} expr2
+
+字符比较
+
+* expr1 {+, -} expr2
+
+表达式加减
+
+* expr1 {*, /, %} expr2
+
+表达式乘，除，求模
+
+* expr1 : expr2
+
+正则匹配
+
+ ## 表达式列表
+ 
+ > a=$(expr $a + 1)
+ 
+ > a=$(expr 1 + $a)
+ 
+ > a=$(expr \( $a \) + 1)
+ 
+ > a=$((a + 1))
+ 
+ > expr "//$a" : '.*/\(.*\)'
+ 
+ > "${a##*/}"
+ 
+ > expr \( "X$a" : ".*" \) - 1
+ 
+ > ${#a}
 
 
 ## History
 
-
-
-## Related
-
-
-
-## Credits
-
-
+V1: 基础版本
 
 ## License
 
