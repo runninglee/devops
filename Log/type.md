@@ -1,6 +1,6 @@
 # type
 
-TODO:
+type命令
 
 ## Usage
 
