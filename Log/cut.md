@@ -14,9 +14,7 @@
              使用delim替换tab做为字段分隔符
 
      -f list
-             The list specifies fields, separated in the input by the field
-             delimiter character (see the -d option.)  Output fields are sepa-
-             rated by a single occurrence of the field delimiter character.
+             输出指定的字段，数字索引
 
      -n      Do not split multi-byte characters.  Characters will only be output
              if at least one byte is selected, and, after a prefix of zero or
@@ -26,6 +24,11 @@
      -s      Suppress lines with no field delimiter characters.  Unless speci-
              fied, lines with no delimiters are passed through unmodified.
 ```
+
+
+使用方式
+
+
 
 
 ## History
