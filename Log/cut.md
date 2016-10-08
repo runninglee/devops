@@ -11,7 +11,7 @@
              The list specifies character positions.
 
      -d delim
-             Use delim as the field delimiter character instead of the tab char-acter.
+             使用delim替换tab做为字段分隔符
 
      -f list
              The list specifies fields, separated in the input by the field
