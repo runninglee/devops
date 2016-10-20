@@ -4,7 +4,7 @@
 
 > Input && Output
 
-- [x] - cat
+- [x] - [cat使用方式](https://github.com/HuiLee/useful-commands/blob/master/IO/cat.md)
 
 
 ## User
