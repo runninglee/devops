@@ -979,7 +979,7 @@ TELNET and TFTP 端口协议
 指定文件路径名称下载
 
 ```
-curl url -o /path/filename
+curl -O URL /path/filename
 ```
 
 认证

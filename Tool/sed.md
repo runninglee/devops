@@ -48,9 +48,6 @@ cat -n log1 ｜sed  '3,$p'
 ```
 
 
-
-
-
 ### History
 
 v1:基础操作
