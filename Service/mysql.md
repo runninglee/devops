@@ -28,12 +28,12 @@ $ mysql> show full processlist;
 # 根据列出来的问题，优化程序索引，优化查询方式
 ```
 
-Explain检验SQL状态
-#####id
+##Explain检验SQL状态
+###id (SQL执行顺序)
 ```
 select执行的顺序
 ```
-#####select_type
+###select_type(查询类型)
 ```
 A: simple:简单的select
 B: primary:外层查询select
@@ -44,11 +44,11 @@ F: dependent subquery: 子查询中的第一个 subquery依赖于外部的子查
 G: derived: 派生表 select（from子句中的子查询）
 ```
 
-#####table
+#####table(查询数据表)
 ```
 查询使用表
 ```
-####type
+####type(查询链接类型，最可怕的是all,index)
 ```
 A：system:表只有一行记录（等于系统表）
 B：const:表中最多只有一行匹配的记录，它在查询一开始的时候就会被读取出来；const 用于在和 primary key 或unique 索引中有固定值比较的情形
@@ -62,32 +62,32 @@ I：range: 只有在给定范围的记录才会被取出来，利用索引来取
 J：index: 连接类型跟 all 一样，不同的是它只扫描索引树。它通常会比 all快点，因为索引文件通常比数据文件小。mysql在查询的字段知识单独的索引的一部分的情况下使用这种连接类型。
 K：all: 将对该表做全部扫描以和从前一个表中取得的记录作联合。这时候如果第一个表没有被标识为const的话就不大好了，在其他情况下通常是非常糟糕的。正常地，可以通过增加索引使得能从表中更快的取得记录以避免all。
 ```
-####possible_keys
+####possible_keys(可能使用键)
 ```
 指 mysql在搜索表记录时可能使用哪个索引
 ```
-####key
+####key(本次查询使用的索引)
 ```
 key字段显示了mysql实际上要用的索引。当没有任何索引被用到的时候，这个字段的值就是null。想要让mysql强行使用或者忽略在 possible_keys字段中的索引列表，可以在查询语句中使用关键字force index, use index,或 ignore index
 ```
-####key_len
+####key_len(索引长度)
 ```
 key_len 字段显示了mysql使用索引的长度。当 key 字段的值为 null时，索引的长度就是 null。注意，key_len的值可以告诉你在联合索引中mysql会真正使用了哪些索引。
 ```
-####ref
+####ref(关联字段)
 ```
 ref 字段显示了哪些字段或者常量被用来和 key配合从表中查询记录出来
 ```
-####rows
+####rows(查询的条数)
 ```
 显示了mysql认为在查询中应该检索的记录数
 ```
-####extra
+####extra(本次查询的具体状态)
 ```
-A:  distinct:mysql当找到当前记录的匹配联合结果的第一条记录之后，就不再搜索其他记录了
-B:  not exists:mysql在查询时做一个 left join优化时，当它在当前表中找到了和前一条记录符合left join条件后，就不再搜索更多的记录了
+A:  distinct: mysql当找到当前记录的匹配联合结果的第一条记录之后，就不再搜索其他记录了
+B:  not exists: mysql在查询时做一个 left join优化时，当它在当前表中找到了和前一条记录符合left join条件后，就不再搜索更多的记录了
 C:  using filesort: mysql需要额外的做一遍从而以排好的顺序取得记录。排序程序根据连接的类型遍历所有的记录，并且将所有符合 where条件的记录的要排序的键和指向记录的指针存储起来。这些键已经排完序了，对应的记录也会按照排好的顺序取出来。
-D:  using index:  字段的信息直接从索引树中的信息取得，而不再去扫描实际的记录。这种策略用于查询时的字段是一个独立索引的一部分
+D:  using index: 字段的信息直接从索引树中的信息取得，而不再去扫描实际的记录。这种策略用于查询时的字段是一个独立索引的一部分
 E:  using temporary: mysql需要创建临时表存储结果以完成查询。这种情况通常发生在查询时包含了groupby 和 order by 子句，它以不同的方式列出了各个字段
 F:  using where: where子句将用来限制哪些记录匹配了下一个表或者发送给客户端。除非你特别地想要取得或者检查表种的所有记录，否则的话当查询的extra 字段值不是 using where 并且表连接类型是 all 或 index时可能表示有问题。如果你想要让查询尽可能的快，那么就应该注意 extra 字段的值为usingfilesort 和 using temporary 的情况。
 ```
