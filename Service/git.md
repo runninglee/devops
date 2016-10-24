@@ -1,23 +1,23 @@
-### git server
+### git托管服务
 
 ---
 
-**which one do you use?**
+**常用的代码托管服务**
 
 ```
-- github
+- github: 最棒的git仓库管理
 
-- bitbucket 
+- bitbucket: 国外私有仓库管理 
 
-- coding.net
+- coding.net: 国内私有仓库管理
 
 ```
 
-**Make a new project**
+**初始化**
 
 :smiley:
 
-**Generate a new project with composer or npm**
+**使用composer或npm**
 
 ```
 - React ？
@@ -38,33 +38,32 @@
 
 :smiley:
 
-**Configure your git info**
+**配置git仓库**
 
 ```
-- git init  (generate the local repository)
+- git init  (初始化本地仓库)
 
-- git add . ( add the files to local repository)
+- git add . ( 添加文件到本地仓库)
 
-- git commit -m "the first commit" ( commit message)
+- git commit -m "提交信息" ( 提交信息)
 
-- git remote add origin your copy url (set the origin link)
+- git remote add origin url (添加远程仓库地址)
 
-- git pull origin master (pull code to local repository)
+- git pull origin master (拉取远程的代码到本地)
 
-- git push -u origin master (push the target server)
-
-```
-
-
-** SSH **
-
-```
-- ssh-keygen -t rsa -C "your great name"
-
-- copy your public secret to SSH publish secret
+- git push -u origin master (推送代码到远程git仓库)
 
 ```
 
+
+** SSH 公钥设置免密码**
+
+```
+- ssh-keygen -t rsa -C "仓库名"
+
+- 复制代码服务器公钥到git仓库的私密钥
+
+```
 
 ## License
 
