@@ -55,7 +55,7 @@ $ mysql> show full processlist;
 # 根据列出来的问题，优化程序索引，优化查询方式
 ```
 
-##Explain检验SQL状态
+##Explain优化器
 ###id (SQL执行顺序)
 ```
 select执行的顺序
