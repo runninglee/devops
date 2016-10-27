@@ -139,5 +139,25 @@ F:  using where: where子句将用来限制哪些记录匹配了下一个表或�
 
 ## 优化方案
 
+对where查询字段做适当索引，单个主键，复合索引，order 必须是索引
+
+判断为空的字段给予默认值，禁止使用null
+
+where条件中注意表引擎方式，合理避开<>方式
+
+对于使用or连接的，可以使用union关联查询
+
+如果表中使用in,not in,建议分开使用，可是尝试between a and b
+
+like搜索中，使用aa%可以使用索引
+
+符合索引，首个字段必须是索引组合字段
+
+exists可以代替in，可以优化操作
+
+避免select *返回全部数据
+
+尽量使用数字类型
+
 
 [MIT License](https://opensource.org/licenses/mit-license.html). ©  [Running Lee](mailto:lihui870920@gmail.com)
