@@ -48,6 +48,7 @@ HTTP
 HTTP是客户端浏览器或其他程序与Web服务器之间的应用层通信协议。
 
 Socket
+
 网络上的两个程序通过一个双向的通信连接实现数据的交换，这个连接的一端称为一个socket。
 根据连接启动的方式以及本地套接字要连接的目标，套接字之间的连接过程可以分为三个步骤：服务器监听，客户端请求，连接确认。
 
@@ -71,11 +72,25 @@ TCP三次握手的过程如下：
 
 UDP
 
-UDP提供了无连接通信，且不对传送数据包进行可靠性保证，适合于一次传输少量数据，UDP传输的可靠性由应用层负责
+UDP提供了无连接通信，且不对传送数据包进行可靠性保证，适合于一次传输少量数据，UDP传输的可靠性由应用层负责。
+
 
 WebSocket
 
-WebSocket protocol 是HTML5一种新的协议。它实现了浏览器与服务器全双工通信(full-duplex)。一开始的握手需要借助HTTP请求完成。
+
+WebSocket protocol 是HTML5一种新的协议。它实现了浏览器与服务器全双工通信(full-duplex)。一开始的握手需要借助HTTP请求完成,完成之后通过TCP进行端对端的通信传输。
+
+
+Nginx反向代理websocket
+
+```
+location /websocket/ {
+    proxy_pass http://swoole.php;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+}
+```
 
 
 
