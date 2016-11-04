@@ -93,5 +93,8 @@ location /websocket/ {
 ```
 
 
+高级浏览器可以使用websocket,如果要兼容低版本的浏览器可以使用socket.io(websocket,ajax长轮询)的综合体，可以使用NodeJS做服务端处理
+
+
 
 [MIT License](https://opensource.org/licenses/mit-license.html). ©  [Running Lee](mailto:lihui870920@gmail.com)
