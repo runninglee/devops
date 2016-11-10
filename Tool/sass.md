@@ -24,6 +24,7 @@ a {
   &:hover { text-decoration: underline; }
   body.firefox & { font-weight: normal; }
 }
+
 &表示a标签
 ```
 
@@ -174,7 +175,6 @@ complement(#cc3)    // #33c
 }
 ```
 
-## History
 
 ## Related
 
