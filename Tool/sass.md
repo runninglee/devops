@@ -69,7 +69,9 @@ nav{
   @extend .message;
   border-color: yellow;
 }
+
 -----------------------------------
+
 .message, .success, .error, .warning {
   border: 1px solid #cccccc;
   padding: 10px;
@@ -99,6 +101,7 @@ nav{
     content: "Hi, Firefox users!";
   }
 }
+
 @include firefox-message(".header");
 ```
 
@@ -112,14 +115,18 @@ $gutter-width: 10px;
 }
 
 直接赋值
+
 #sidebar { width: grid-width(5); }
+
 使用默认值
+
 #sidebar { width: grid-width($n: 5); }
 ```
 
 **使用```颜色色块方法```处理程序块**
 ```
 $linkColor: #08c;
+
 a {
     text-decoration:none;
     color:$linkColor;
@@ -127,46 +134,51 @@ a {
       color:darken($linkColor,10%);
     }
 }
+
 ------------------------------------
-lighten(#cc3, 10%) // #d6d65c
-darken(#cc3, 10%)  // #a3a329
-grayscale(#cc3)   // #808080
-complement(#cc3)  // #33c
+
+lighten(#cc3, 10%)  // #d6d65c
+
+darken(#cc3, 10%)   // #a3a329
+
+grayscale(#cc3)     // #808080
+
+complement(#cc3)    // #33c
 ```
 
 **使用```使用@if```处理程序块**
 ```
 @if darken($color) > 30% {
-　　　　background-color: #000;
-　　} @else {
-　　　　background-color: #fff;
-　　}
+　　　background-color: #000;
+} @else {
+　　　background-color: #fff;
+}
 ```
 
 **使用```使用@for```处理程序块**
 ```
 @for $i from 1 to 3 {
-　　　　.item-#{$i} {
-　　　　　　border-radis: #{$i}px;
-　　　　}
+　　.item-#{$i} {
+　　    border-radis: #{$i}px;
 　　}
+}
 ```
 
 **使用```使用@each```处理程序块**
 
 ```
 @each $position in header, body, sidebar, footer {
-　　　　.#{$position} {
-　　　　　　background-image: url("/image/#{$position}.jpg");
-　　　　}
-　　}
+　　　.#{$position} {
+　　　　　background-image: url("/image/#{$position}.jpg");
+　　　}
+}
 ```
 
 ## History
 
 ## Related
 
-v1: 开发中经常使用的Sass程序块
+版本1: 开发中经常使用的Sass程序块
 
 ## License
 
