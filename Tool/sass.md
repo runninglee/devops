@@ -176,6 +176,53 @@ complement(#cc3)    // #33c
 ```
 
 
+**子组合选择器和同层组合选择器：>、+和~**
+
+* `>` 子选择器
+
+```
+header > .nav{
+    color : white;
+}
+
+equal
+
+header {
+    .nav{
+        color : white;
+    }
+}
+
+```
+
+* `+` 相邻选择器
+
+```
+header + footer{
+    color : white;
+}
+
+equal
+
+<header style="color:white;">...</header>
+<footer style="color:white;">...</footer>
+```
+
+* `～` 同层选择器
+
+```
+header ~ p{
+    color : white;
+}
+
+equal
+
+<header>...</header>
+<p style="color:white;">...</p>
+<p style="color:white;">...</p>
+<p style="color:white;">...</p>
+```
+
 ## Related
 
 版本1: 开发中经常使用的Sass程序块
