@@ -7,7 +7,7 @@ CSS预编译文件处理
 
 **使用```$```加变量即可**
 
-```
+```css
 $bg-color:#d2d2d2;
 
 body{
@@ -17,7 +17,7 @@ body{
 
 **使用```&```应用父标签**
 
-```
+```css
 a {
   font-weight: bold;
   text-decoration: none;
@@ -30,7 +30,7 @@ a {
 
 **使用```@mixin```定义程序块**
 
-```
+```css
 @mixin navbar-active {
   background: $bg-color-active;
   color: $text-color;
@@ -41,7 +41,7 @@ a {
 
 **使用```@include```引入公共程序块**
 
-```
+```css
 nav{
     @include navbar-active;
 }
@@ -49,7 +49,7 @@ nav{
 
 **使用```@extend```继承扩展程序块**
 
-```
+```css
 .message {
   border: 1px solid #ccc;
   padding: 10px;
@@ -94,7 +94,7 @@ nav{
 
 **使用```@mixin```定义含参数程序块**
 
-```
+```css
 使用#{}包裹变量
 
 @mixin firefox-message($selector) {
@@ -107,7 +107,7 @@ nav{
 ```
 
 **使用```function```使用函数计算程序块**
-```
+```css
 $grid-width: 40px;
 $gutter-width: 10px;
 
@@ -125,7 +125,7 @@ $gutter-width: 10px;
 ```
 
 **使用```颜色色块方法```处理程序块**
-```
+```css
 $linkColor: #08c;
 
 a {
@@ -148,7 +148,7 @@ complement(#cc3)    // #33c
 ```
 
 **使用```使用@if```处理程序块**
-```
+```css
 @if darken($color) > 30% {
 　　　background-color: #000;
 } @else {
@@ -157,7 +157,7 @@ complement(#cc3)    // #33c
 ```
 
 **使用```使用@for```处理程序块**
-```
+```css
 @for $i from 1 to 3 {
 　　.item-#{$i} {
 　　    border-radis: #{$i}px;
@@ -167,7 +167,7 @@ complement(#cc3)    // #33c
 
 **使用```使用@each```处理程序块**
 
-```
+```css
 @each $position in header, body, sidebar, footer {
 　　　.#{$position} {
 　　　　　background-image: url("/image/#{$position}.jpg");
@@ -180,7 +180,7 @@ complement(#cc3)    // #33c
 
 * `>` 子选择器
 
-```
+```css
 header > .nav{
     color : white;
 }
@@ -197,7 +197,7 @@ header {
 
 * `+` 相邻选择器
 
-```
+```css
 header + footer{
     color : white;
 }
@@ -210,7 +210,7 @@ equal
 
 * `～` 同层选择器
 
-```
+```css
 header ~ p{
     color : white;
 }
