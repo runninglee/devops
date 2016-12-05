@@ -1,15 +1,16 @@
-### Supervisor Service
+# Supervisor Service
 
 debian下安装supervisor,使用于laravel队列任务
 
-### 安装
+## 安装
 
 `sudo apt-get update`
+
 `sudo apt-get install supervisor`
 
-###  配置管理
+##  配置管理
 
-**创建配置文件**
+### 创建配置文件
 
 > cd /etc/supervisor/conf.d && cat yourproject.conf
 
@@ -26,7 +27,7 @@ stdout_logfile=/home/forge/app.com/worker.log
 
 ```
 
-**管理**
+### 管理
 
 > /etc/init.d/supervisord {start|stop|restart|force-reload|status|force-stop}   
 
@@ -41,13 +42,14 @@ stdout_logfile=/home/forge/app.com/worker.log
 `更新客户端配置`
 
 
-### 测试
+## 测试
+
+项目测试运用于laravel项目
 
 
- TODO：Let't code in laravel
+## 重启服务
 
-
-### 重启服务
+队列服务在项目代码部署之后，需要重新队列任务，否则新的队列任务将不会生效，下面是laravel的更新方式
 
 > php artisan queue:restart
 
