@@ -8,12 +8,10 @@ debian下安装supervisor,使用于laravel队列任务
 
 `sudo apt-get install supervisor`
 
-##  配置管理
 
-### 创建配置文件
+## 创建配置文件
 
 `cd /etc/supervisor/conf.d && cat yourproject.conf`
-
 
 ```nginx
 [program:laravel-worker]
@@ -25,34 +23,30 @@ user=username
 numprocs=8
 redirect_stderr=true
 stdout_logfile=/home/forge/app.com/worker.log
-
 ```
 
-### 管理
+## 服务管理
 
-`/etc/init.d/supervisord {start|stop|restart|force-reload|status|force-stop} `  
+> /etc/init.d/supervisord {start|stop|restart|force-reload|status|force-stop} 
 
-必须配置yourproject.conf,否则服务端supervisord启动不了
-
-`sudo supervisorctl reread`
-
-重新加载客户端配置     
-
-`sudo supervisorctl update`
-
-更新客户端配置
+> 必须配置yourproject.conf,否则服务端supervisord启动不了
 
 
-启动客户端配置
+sudo supervisorctl reread
 
-`sudo supervisorctl start all`
+## 重新加载客户端配置     
+
+sudo supervisorctl update
 
 
-区别supervisord && supervisorctl
+## 启动客户端配置
+
+sudo supervisorctl start all
 
 
-`supervisord是服务进程，用户管理supervisor进程，supervisorctl是客户端进程，用于管理系统中的子任务进程，一般情况下，任务配置修更新客户端进程，服务进程编程更新supervisor配置`
+## 区别
 
+supervisord是服务进程，用户管理supervisor进程，supervisorctl是客户端进程，用于管理系统中的子任务进程，一般情况下，任务配置修更新客户端进程，服务进程编程更新supervisor配置
 
 ## 测试
 
