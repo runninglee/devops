@@ -48,6 +48,12 @@ stdout_logfile=/home/forge/app.com/worker.log
 `sudo supervisorctl start all`
 
 
+区别supervisord && supervisorctl
+
+
+`supervisord是服务进程，用户管理supervisor进程，supervisorctl是客户端进程，用于管理系统中的子任务进程，一般情况下，任务配置修更新客户端进程，服务进程编程更新supervisor配置`
+
+
 ## 测试
 
 项目测试运用于laravel项目
