@@ -38,9 +38,14 @@ stdout_logfile=/home/forge/app.com/worker.log
 
 重新加载客户端配置     
 
-`sudo supervisorctl update  `
+`sudo supervisorctl update`
 
 更新客户端配置
+
+
+启动客户端配置
+
+`sudo supervisorctl start all`
 
 
 ## 测试
@@ -53,7 +58,6 @@ stdout_logfile=/home/forge/app.com/worker.log
 `php artisan queue:restart`
 
 队列服务在项目代码部署之后，需要重新队列任务，否则新的队列任务将不会生效，下面是laravel的更新方式
-
 
 
 ## License
