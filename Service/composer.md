@@ -6,7 +6,9 @@ PHP包管理工具
 
 ### 管理包安装
 
-> apt-get install composer
+```shell
+apt-get install composer
+```
 
 ### 编译安装
 
