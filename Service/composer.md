@@ -8,7 +8,7 @@ PHP包管理工具
 
 > apt-get install composer
 
-### 编译安装(root权限)
+### 编译安装
 
 ```shell
 cd /usr/local/bin
