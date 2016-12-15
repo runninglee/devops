@@ -1,23 +1,27 @@
 # composer
 
-TODO:
+PHP包管理工具
 
-## Usage
+## 安装
 
-TODO: 描述如何使用命令
+### 管理包安装
 
+> apt-get install composer
 
-## History
+### 编译安装(root权限)
 
+```shell
+cd /usr/local/bin
 
+curl -s https://getcomposer.org/installer | php
 
-## Related
+chmod a+x composer.phar
 
+composer.phar self-update
 
+mv composer.phar composer
 
-## Credits
-
-
+```
 
 ## License
 
