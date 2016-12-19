@@ -6,7 +6,8 @@
 
 格式：
 
-scp [-12346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file] [-l limit] [-o ssh_option] [-P port] [-S program] [[user@]host1:]file1 ...[[user@]host2:]file2
+`scp [-12346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file] [-l limit] [-o ssh_option] [-P port] [-S program] [[user@]host1:]file1 ...[[user@]host2:]file2`
+
 
 ## 案例
 
@@ -16,11 +17,13 @@ scp [-12346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file] [-l limit] [-o
 
 下载demo.sql文件到home目录下的download文件中
 
+
 ### 本地上传远程服务器
 
 `scp ~/download/demo.sql demo@127.98.21.12:/demo/backup/`
 
 上传本地demo.sql文件到远程服务器上
+
 
 ### 计划任务
 
