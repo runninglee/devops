@@ -30,6 +30,44 @@ brew install yarn
  > yarn --version
  
  
+ ### yarn使用
+ 
+ yarn [command] [flags]
+ 
+ ```shell
+  command:
+    - access
+    - add  添加
+    - bin  执行脚本
+    - cache 缓存
+    - check 检查环境
+    - clean 清理缓存
+    - config 配置项目信息
+    - generate-lock-entry
+    - global 全局
+    - info 查看项目信息
+    - init 初始化
+    - install 安装
+    - licenses 查看证书
+    - link
+    - login 登录
+    - logout 登出
+    - ls
+    - outdated
+    - owner
+    - pack  打包
+    - publish  发布
+    - remove 移除
+    - run  运行
+    - self-update 更新
+    - tag 打标签
+    - team
+    - unlink 移除依赖
+    - upgrade 升级
+    - version 参看版本
+    - why
+```
+ 
 ## 参考
 
 ![相关链接](https://yarnpkg.com/en/docs/install#linux-tab)
