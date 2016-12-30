@@ -68,6 +68,16 @@ brew install yarn
     - why
 ```
  
+## 使用
+
+添加
+
+1. yarn add package-name
+
+2. yarn add <git remote url>
+
+3. yarn global add <package...>
+ 
 ## 参考
 
 ![相关链接](https://yarnpkg.com/en/docs/install#linux-tab)
