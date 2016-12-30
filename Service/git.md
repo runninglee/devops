@@ -65,7 +65,28 @@
 
 ```
 
+## 使用
+
+添加分支
+
+`git checkout -b branchname(分支名)`
+
+修改分支
+
+`git branch -m <newname>`
+
+删除分支
+
+`git branch -d branchname(分支名)`
+
+切换分支
+
+`git checkout branchname(分支名)`
+
+合并分支
+
+`git merge branchname(分支名)`
+
 ## License
 
 [MIT License](https://opensource.org/licenses/mit-license.html). ©  [Running Lee](mailto:lihui870920@gmail.com)
-
