@@ -66,6 +66,21 @@ supervisord> help
 `version` `update` `reread` `clear` `status` `mailtail` `stop`
 
 
+## 错误
+
+```bash
+ps -ef | grep supervisord
+
+kill -9 Pid
+
+----Or----
+
+find  / -name supervisor.sock
+
+sudo unlink /private/tmp/supervisor.sock
+
+```
+
 ## License
 
 [MIT License](https://opensource.org/licenses/mit-license.html). ©  [Running Lee](mailto:lihui870920@gmail.com)
