@@ -27,7 +27,7 @@ stdout_logfile=/home/forge/app.com/worker.log
 
 ## 服务管理
 
-`/etc/init.d/supervisord {start|stop|restart|force-reload|status|force-stop} `
+`/etc/init.d/supervisor {start|stop|restart|force-reload|status|force-stop} `
 
 > 必须配置yourproject.conf,否则服务端supervisord启动不了
 
