@@ -20,7 +20,7 @@ command=php /home/forge/app.com/artisan queue:work sqs --sleep=3 --tries=3 --dae
 autostart=true
 autorestart=true
 user=username
-numprocs=8
+numprocs=16 (CPUX8)
 redirect_stderr=true
 stdout_logfile=/home/forge/app.com/worker.log
 ```
