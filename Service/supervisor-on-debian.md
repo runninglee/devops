@@ -59,7 +59,6 @@ supervisord是服务进程，用户管理supervisor进程，supervisorctl是客�
 
 队列服务在项目代码部署之后，需要重新队列任务，否则新的队列任务将不会生效，下面是laravel的更新方式
 
-
 ## License
 
 [MIT License](https://opensource.org/licenses/mit-license.html). ©  [Running Lee](mailto:lihui870920@gmail.com)
