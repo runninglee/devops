@@ -1,4 +1,4 @@
-# FLUX
+# Flux
 
 
 
@@ -11,7 +11,7 @@
 
 # Links
 
-[Flux](https://facebook.github.io/flux/)
+[Flux](https://facebook.github.io/flux/Flux.md)
 
 #License
 
