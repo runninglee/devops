@@ -27,7 +27,7 @@ cd $LOGICAL_BACKUP_DIR
 function backup_mysql {
 for dbname in $1 $2 $3 $4 $5 $6 $7 $8 
 do
-/www/wdlinux/mysql/bin/mysqldump -uroot -p"nongyaobaihou"   $dbname > $LOGICAL_BACKUP_DIR/${dbname}_$TIME.sql
+/usr/local/mysql/bin/mysqldump -uroot -p"mysqlpasswd"   $dbname > $LOGICAL_BACKUP_DIR/${dbname}_$TIME.sql
 tar zcvf ${dbname}_$TIME.sql.tar.gz ${dbname}_$TIME.sql
 rm ${dbname}_$TIME.sql -f
 #find $LOGICAL_BACKUP_DIR -ctime +30 -exec rm -fr {} \;
