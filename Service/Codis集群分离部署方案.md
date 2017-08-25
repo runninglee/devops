@@ -1,8 +1,8 @@
-#Codis简介：
-### Codis 是一个分布式 Redis 解决方案, 对于上层的应用来说, 连接到 Codis Proxy 和连接原生的 Redis Server 没有显著区别 (不支持的命令列表), 上层应用可以像使用单机的 Redis 一样使用, Codis 底层会处理请求的转发, 不停机的数据迁移等工作, 所有后边的一切事情, 对于前面的客户端来说是透明的, 可以简单的认为后边连接的是一个内存无限大的 Redis 服务。
+# Codis简介：
+## Codis 是一个分布式 Redis 解决方案, 对于上层的应用来说, 连接到 Codis Proxy 和连接原生的 Redis Server 没有显著区别 (不支持的命令列表), 上层应用可以像使用单机的 Redis 一样使用, Codis 底层会处理请求的转发, 不停机的数据迁移等工作, 所有后边的一切事情, 对于前面的客户端来说是透明的, 可以简单的认为后边连接的是一个内存无限大的 Redis 服务。
 
-##Codis redis集群方案：
-###根据公司线上需求及资源限制原因，规划codis的分布式部署将各组件分离部署到两台阿里云主机上，满足高可用和负载需求：
+## Codis redis集群方案
+###根据公司线上需求及资源限制原因，规划codis的分布式部署将各组件分离部署到两台主机上，满足高可用和负载需求。
 	
 
 
@@ -10,9 +10,9 @@ Codis分布式集群架构图：
 
 ![](https://raw.githubusercontent.com/CodisLabs/codis/release3.2/doc/pictures/architecture.png)
 
-##部署规划
+## 部署规划
 
-####codis01：10.0.0.21
+#### codis01：10.0.0.21
 
 		部署：
              codis-proxy : 无状态代理，负责客户端连接代理redis服务，客户端连接proxy如同连接单节点redis一样
@@ -20,7 +20,7 @@ Codis分布式集群架构图：
              redis-sentine: redis哨兵服务，用于codis调用redis哨兵管理redis主从切换
              zookeeper   : 为集群状态提供外部存储
 
-####codis02: 10.0.0.22
+#### codis02: 10.0.0.22
 
         部署：
              codis-proxy
@@ -32,9 +32,9 @@ Codis分布式集群架构图：
                        通过配置文件管理后端 codis-dashboard 列表，配置文件可自动更新
              redis-sentine:
 
-##部署步骤（测试环境搭建）：
+## 部署步骤（测试环境搭建）：
 
-####* 环境准备：
+#### 环境准备：
 
 
 		一、为两台虚拟机配置go环境和java环境，两台都做：
@@ -57,17 +57,18 @@ Codis分布式集群架构图：
                       export GOROOT=/usr/local/go # 安装路径 
 					  export GOPATH=/usr/local/codis # 工作路径 
 					  export PATH=$PATH:$GOPATH/bin:$GOROOT/bin # 命令搜索路径
-                3.3 创建codis目录：
-					  # /usr/local/codis/src/github.com/CodisLabs/codis
-         
+
         二、编译安装codis，两台都做：
 
 			   1、 获取 codis代码：
-					# cd /usr/local/codis/src/github.com/CodisLabs/codis
+					# cd /usr/local/src/
                     # wget https://codeload.github.com/CodisLabs/codis/zip/release3.2
                2、 解压 codis代码压缩包：
+					# mkdir -p /usr/local/codis/src/github.com/CodisLabs
                     # unzip codis-release3.2.zip
-                    # /usr/local/codis/src/github.com/CodisLabs/codis-release3.2 /usr/local/codis/src/github.com/CodisLabs/codis
+                    # mv /usr/local/src/codis-release3.2 /usr/local/codis/src/github.com/CodisLabs/
+                    # cd /usr/local/codis/src/github.com/CodisLabs/
+					# ln -s codis-release3.2 codis
                3、 编译
                     # cd /usr/local/codis/src/github.com/CodisLabs/codis
                     # make 
@@ -96,9 +97,14 @@ Codis分布式集群架构图：
 					-rwxr-xr-x 1 root staff  5501208 8月  24 14:58 redis-sentinel
 					-rw-r--r-- 1 root staff       96 8月  24 13:23 version
 					root@codis1:/usr/local/codis/src/github.com/CodisLabs/codis# 
-         
+
+         		5、拷贝codis程序：
+					# mkdir -p /usr/local/codis/{bin,config,log}
+					# cp -fr /usr/local/codis/src/github.com/CodisLabs/codis/bin/* /usr/local/codis/bin/
+					# cp -fr /usr/local/codis/src/github.com/CodisLabs/codis/config/* /usr/local/codis/config/
+
  
-####* 部署zookeeper服务：[10.0.0.21]
+#### 部署zookeeper服务：[10.0.0.21]
 
 
                1.1 部署zookeeper服务：部署为多实例: 到正式环境 可以将三个zk节点分别部署到三个服务器上
@@ -163,10 +169,10 @@ Codis分布式集群架构图：
 					Using config: /opt/zk3/zk3.cfg
 					Mode: follower
 
-####* 部署codis-server: [本测试 双实例部署{10.0.0.21，10.0.0.22都部署一套双实例，配置文件修改和命名方式一样}]
+#### 部署codis-server: [本测试 双实例部署{10.0.0.21，10.0.0.22都部署一套双实例，配置文件修改和命名方式一样}]
 				
 				1.1 创建codis-server多实例配置文件
-                    # cd /usr/local/codis/src/github.com/CodisLabs/codis/config
+                    # cd /usr/local/codis/config
 					# cp redis.cnf redis_6379.conf 
                     # cp redis.cnf redis_6381.conf
                 1.2 修改多实例配置文件参数： 
@@ -190,7 +196,7 @@ Codis分布式集群架构图：
 
 					dbfilename "dump_6379.rdb"    -------------- 持久化rdb文件
 
-					dir "/usr/local/codis-release3.2/src/github.com/CodisLabs/codis-release3.2"  -------------codis程序主目录
+					dir "/usr/local/codis-release3.2"  -------------codis程序主目录
 
 					masterauth "123456"           -------------- 主从同步密码
 
@@ -224,7 +230,7 @@ Codis分布式集群架构图：
 
 					dbfilename "dump_6379.rdb"    -------------- 持久化rdb文件
 
-					dir "/usr/local/codis-release3.2/src/github.com/CodisLabs/codis-release3.2"  -------------codis程序主目录
+					dir "/usr/local/codis-release3.2"  -------------codis程序主目录
 
 					masterauth "123456"           -------------- 主从同步密码
 
@@ -241,11 +247,11 @@ Codis分布式集群架构图：
                 1.3，启动codis-server服务
 					
 					一、10.0.0.21:
-						# cd /usr/local/codis-release3.2/src/github.com/CodisLabs/codis
+						# cd /usr/local/codis
                         # ./bin/codis-server config/redis_6379.conf 
                         # ./bin/codis-server config/redis_6381.conf 
                     二、10.0.0.22：
-					    # cd /usr/local/codis/src/github.com/CodisLabs/codis
+					    # cd /usr/local/codis
                         # ./bin/codis-server config/redis_6379.conf 
                         # ./bin/codis-server config/redis_6381.conf 
                     三、查看服务启动进程及端口：
@@ -253,16 +259,16 @@ Codis分布式集群架构图：
 						tcp        0      0 0.0.0.0:6379            0.0.0.0:*               LISTEN      45557/codis-server 
 						tcp        0      0 0.0.0.0:6381            0.0.0.0:*               LISTEN      35399/codis-server 
 
-####* 部署codis-dashboard服务[此服务搭建在 10.0.0.12上]：
+#### 部署codis-dashboard服务[此服务搭建在 10.0.0.12上]：
 				
                 1.1、生成codis-dashboard的配置文件：
-					# cd /usr/local/codis/src/github.com/CodisLabs/codis/bin/
-                    # ./codis-dashboard - -default-conifg | tee ../conf/dashboard.conf 
+					# cd /usr/local/codis/bin/
+                    # ./codis-dashboard --default-config | tee /usr/local/codis/config/dashboard.conf 
 
                 1.2  修改配置文件：
 					# vim ../conf/dashboard.conf
                     coordinator_name = "zookeeper" # 外部存储类型 
-					coordinator_addr = "10.0.0.21:2181,10.0.0.21:2181,10.0.0.21:2181" # 外部存储IP列表
+					coordinator_addr = "10.0.0.21:2181,10.0.0.21:2182,10.0.0.21:2183" # 外部存储IP列表
 					
 					product_name = "codis-fx" # 项目名称 
 					product_auth = “123456” # 集群密码（注意:需要与redis配置中的requirepass保持一致）
@@ -272,23 +278,23 @@ Codis分布式集群架构图：
                 1.3 为了防止出现dashboard监控页面中OPS始终为0的现象，需要将各proxy的IP和主机名写到hosts文件中 [host文件互相解析主机名]
 
                 1.4 启动codis-dashboard
-					# cd usr/local/codis/src/github.com/CodisLabs/codis/bin/
-                    # nohup ./codis-dashboard --ncpu=2 --config=/usr/local/codis/src/github.com/CodisLabs/codis/conf/dashboard.conf --log=/usr/local/codis/src/github.com/CodisLabs/codis/log/dashboard.log - -log-level=WARN &
+					# cd /usr/local/codis/bin/
+                    # nohup ./codis-dashboard --ncpu=2 --config=/usr/local/codis/config/dashboard.conf --log=/usr/local/codis/log/dashboard.log --log-level=WARN &
                     如果想关闭dashboard服务，可执行：
-                    #./codis-admin - -dashboard=10.0.0.22:18080 –auth=123456 - -shutdown
+                    #./codis-admin --dashboard=10.0.0.22:18080 –auth=123456 --shutdown
 
                 1.5 查看服务进程和端口：
 					netstat -lntp|grep codis-dashboa
 					tcp6       0      0 :::18080                :::*                    LISTEN      11266/codis-dashboa
 
-####* 部署codis-proxy服务[两台服务器上都搭建此服务(配置文件相同)，可配合keepalived做高可用代理，也可此代理前端用haproxy做负载均衡]
+#### 部署codis-proxy服务[两台服务器上都搭建此服务(配置文件相同)，可配合keepalived做高可用代理，也可此代理前端用haproxy做负载均衡]
 
                 1.1、生成codis-dashboard的配置文件：
-					# cd /usr/local/codis/src/github.com/CodisLabs/codis/bin/
-                    # ./codis-proxy - -default-conifg | tee ../conf/proxy.conf 
+					# cd /usr/local/codis/bin/
+                    # ./codis-proxy --default-config | tee /usr/local/codis/config/proxy.conf 
 
                 1.2  修改配置文件：
-					# vim ../conf/proxy.conf 
+					# vim ../config/proxy.conf 
 					product_name = "codis-fx" # 设置项目名 
 					product_auth = "123456" # 设置登录dashboard的密码（注意：与redis中requirepass一致）
 					
@@ -301,19 +307,19 @@ Codis分布式集群架构图：
 					proxy_addr = "0.0.0.0:19000" #绑定端口（Redis客户端连接此端口） 
 					# 外部存储 
 					jodis_name = "zookeeper" # 外部存储类型 
-					jodis_addr = "10.0.0.21:2181,10.0.0.21:2181,10.0.0.21:2181" # 外部存储列表 
+					jodis_addr = "10.0.0.21:2181,10.0.0.21:2182,10.0.0.21:2183" # 外部存储列表 
 					jodis_timeout = “20s
 
                 1.4 启动codis-proxy
-					# cd usr/local/codis/src/github.com/CodisLabs/codis/bin/
-                    # nohup ./codis-proxy --ncpu=2 - -config=/usr/local/codis/src/github.com/CodisLabs/codis/conf/dashboard.conf --log=/usr/local/codis/src/github.com/CodisLabs/codis/log/dashboard.log - -log-level=WARN &
+					# cd usr/local/codis/bin/
+                    # nohup ./codis-proxy --ncpu=2 --config=/usr/local/codis/config/dashboard.conf --log=/usr/localcodis/log/dashboard.log --log-level=WARN &
 
                 1.5 查看服务进程和端口：
 					# netstat -lntp|grep codis-proxy
 					tcp        0      0 0.0.0.0:19000           0.0.0.0:*               LISTEN      12931/codis-proxy
 					tcp6       0      0 :::11080                :::*                    LISTEN      12931/codis-proxy
 
-####* 部署Redis-sentinel服务：
+#### 部署Redis-sentinel服务：
                Redis官方推荐的高可用性(HA)解决方案。它可以实现对Redis的监控、通知、自动故障转移：
                注意： [两台服务器都搭建一个，作为高可用，
                      而且对于判断主从切换，需要两个sentinel服务都检测故障才可切换主从，
@@ -321,37 +327,38 @@ Codis分布式集群架构图：
                      本测试环境搭建两个]
 
                 1、拷贝程序：
-                   # cd usr/local/codis/src/github.com/CodisLabs/codis/
-				   # cp -fr extern/redis-3.2.8/src/redis-sentinel /usr/local/codis/src/github.com/CodisLabs/codis/bin/
+                   # cd usr/local/codis/
+				   # cp -fr extern/redis-3.2.8/src/redis-sentinel /usr/local/codis/bin/
 
                 2、拷贝配置：
-                   # cd usr/local/codis/src/github.com/CodisLabs/codis/
-				   # cp -fr extern/redis-3.2.8/sentinel.conf /usr/local/codis/src/github.com/CodisLabs/codis/config/
+                   # cd usr/local/codis/
+				   # cp -fr extern/redis-3.2.8/sentinel.conf /usr/local/codis/config/
 
                 3、修改配置：
-				   # /usr/local/codis/src/github.com/CodisLabs/codis/config/
+                   # mkdir /usr/local/codis/data/
+				   # cd /usr/local/codis/config/
                    # vim sentinel.conf
 					bind 0.0.0.0 
 					protected-mode no 
 					port 26379 
-					dir "/usr/local/codis/src/github.com/CodisLabs/codis/data/"
+					dir "/usr/local/codis/data/"
                     备注：其他结点的配置与此一致。
 
                 4、启动Redis-sentinel：
-                   # cd /usr/local/codis/src/github.com/CodisLabs/codis/bin
-                   # nohup ./redis-sentinel /usr/local/codis/src/github.com/CodisLabs/codis/config/sentinel.conf &
+                   # cd /usr/local/codis/bin
+                   # nohup ./redis-sentinel /usr/local/codis/config/sentinel.conf &
 
                 5、查看服务进程和端口号
                    # netstat -lntp|grep redis-sentine
 					tcp        0      0 0.0.0.0:26379           0.0.0.0:*               LISTEN      11866/redis-sentine
 
-####* 部署codis-fe服务 集群管理界面
+#### 部署codis-fe服务 集群管理界面
 
               注意：[需要和codis-dashboard搭建在同一台服务器上，搭建在10.0.0.22]
               
 				1、生成配置文件：
-				   # cd /usr/local/codis/src/github.com/CodisLabs/codis/bin
-                   # ./codis-amdin - -dashboard-list - -zookeeper=192.168.1.51:2181 | tee /usr/local/codis/src/github.com/CodisLabs/codis/config/codis.json
+				   # cd /usr/local/codis/bin
+                   # ./codis-amdin - -dashboard-list - -zookeeper=192.168.1.51:2181 | tee /usr/local/codis/config/codis.json
 				   [ 
 					{ 
 					“name”:”codis-fx”, 
@@ -360,12 +367,13 @@ Codis分布式集群架构图：
 					]
 
                 2、启动codis-fe：
-				   # nohup ./codis-fe --ncpu=2 --log=/usr/local/codis/src/github.com/CodisLabs/codis/log/fe.log - -log-level=WARN - -dashboard-list=/usr/local/codis/src/github.com/CodisLabs/codis/conf/codis.json –listen=0.0.0.0:18090 &
+				   # nohup ./codis-fe --ncpu=2 --log=/usr/local/codis/log/fe.log - -log-level=WARN - -dashboard-list=/usr/local/codis/conf/codis.json –listen=0.0.0.0:18090 &
 
                 3、查看服务进程和端口
 				   # netstat -lntp|grep codis-fe
 					tcp6       0      0 :::18090                :::*                    LISTEN      12771/codis-fe
 
 
-####* 至此codis集群搭建完毕：
+#### 至此codis集群搭建完毕：
 			  打开浏览器，输入10.0.0.22:18090便可看到codis集群的监控界面：
+              链接codis操作redis： redis-cli -h 10.0.0.21 -p 19000 -a 56789
