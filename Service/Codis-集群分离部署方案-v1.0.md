@@ -172,11 +172,11 @@ Codis分布式集群架构图：
 #### 部署codis-server: [本测试 双实例部署{10.0.0.21，10.0.0.22都部署一套双实例，配置文件修改和命名方式一样}]
 				
 				1.1 创建codis-server多实例配置文件
-                    # cd /usr/local/codis/config
+					# cd /usr/local/codis/config
 					# cp redis.cnf redis_6379.conf 
-                    # cp redis.cnf redis_6381.conf
-                1.2 修改多实例配置文件参数： 
-				    # vim redis_6379.conf 
+					# cp redis.cnf redis_6381.conf
+				1.2 修改多实例配置文件参数： 
+					# vim redis_6379.conf 
 					# 部分关键参数
 
 					bind 0.0.0.0 -------------- IP
@@ -244,16 +244,16 @@ Codis分布式集群架构图：
 					appendfilename "appendonly_6379.aof" ------- aof持久化文件
 					appendfsync everysec
 
-                1.3，启动codis-server服务
+				1.3 启动codis-server服务
 					
 					一、10.0.0.21:
 						# cd /usr/local/codis
                         # ./bin/codis-server config/redis_6379.conf 
                         # ./bin/codis-server config/redis_6381.conf 
                     二、10.0.0.22：
-					    # cd /usr/local/codis
-                        # ./bin/codis-server config/redis_6379.conf 
-                        # ./bin/codis-server config/redis_6381.conf 
+						# cd /usr/local/codis
+						# ./bin/codis-server config/redis_6379.conf 
+						# ./bin/codis-server config/redis_6381.conf 
                     三、查看服务启动进程及端口：
 						# netstat -lntp|grep codis-server
 						tcp        0      0 0.0.0.0:6379            0.0.0.0:*               LISTEN      45557/codis-server 
@@ -261,11 +261,11 @@ Codis分布式集群架构图：
 
 #### 部署codis-dashboard服务[此服务搭建在 10.0.0.12上]：
 				
-                1.1、生成codis-dashboard的配置文件：
+				1.1、生成codis-dashboard的配置文件：
 					# cd /usr/local/codis/bin/
                     # ./codis-dashboard --default-config | tee /usr/local/codis/config/dashboard.conf 
 
-                1.2  修改配置文件：
+				1.2  修改配置文件：
 					# vim ../conf/dashboard.conf
                     coordinator_name = "zookeeper" # 外部存储类型 
 					coordinator_addr = "10.0.0.21:2181,10.0.0.21:2182,10.0.0.21:2183" # 外部存储IP列表
@@ -275,25 +275,25 @@ Codis分布式集群架构图：
 					
 					admin_addr = "0.0.0.0:18080" # RESTful API 端口
 
-                1.3 为了防止出现dashboard监控页面中OPS始终为0的现象，需要将各proxy的IP和主机名写到hosts文件中 [host文件互相解析主机名]
+				1.3 为了防止出现dashboard监控页面中OPS始终为0的现象，需要将各proxy的IP和主机名写到hosts文件中 [host文件互相解析主机名]
 
-                1.4 启动codis-dashboard
+				1.4 启动codis-dashboard
 					# cd /usr/local/codis/bin/
-                    # nohup ./codis-dashboard --ncpu=2 --config=/usr/local/codis/config/dashboard.conf --log=/usr/local/codis/log/dashboard.log --log-level=WARN &
-                    如果想关闭dashboard服务，可执行：
-                    #./codis-admin --dashboard=10.0.0.22:18080 –auth=123456 --shutdown
+					# nohup ./codis-dashboard --ncpu=2 --config=/usr/local/codis/config/dashboard.conf --log=/usr/local/codis/log/dashboard.log --log-level=WARN &
+					如果想关闭dashboard服务，可执行：
+					#./codis-admin --dashboard=10.0.0.22:18080 –auth=123456 --shutdown
 
-                1.5 查看服务进程和端口：
+				1.5 查看服务进程和端口：
 					netstat -lntp|grep codis-dashboa
 					tcp6       0      0 :::18080                :::*                    LISTEN      11266/codis-dashboa
 
 #### 部署codis-proxy服务[两台服务器上都搭建此服务(配置文件相同)，可配合keepalived做高可用代理，也可此代理前端用haproxy做负载均衡]
 
-                1.1、生成codis-dashboard的配置文件：
+				1.1、生成codis-dashboard的配置文件：
 					# cd /usr/local/codis/bin/
                     # ./codis-proxy --default-config | tee /usr/local/codis/config/proxy.conf 
 
-                1.2  修改配置文件：
+				1.2  修改配置文件：
 					# vim ../config/proxy.conf 
 					product_name = "codis-fx" # 设置项目名 
 					product_auth = "123456" # 设置登录dashboard的密码（注意：与redis中requirepass一致）
@@ -310,11 +310,11 @@ Codis分布式集群架构图：
 					jodis_addr = "10.0.0.21:2181,10.0.0.21:2182,10.0.0.21:2183" # 外部存储列表 
 					jodis_timeout = “20s
 
-                1.4 启动codis-proxy
+				1.4 启动codis-proxy
 					# cd usr/local/codis/bin/
                     # nohup ./codis-proxy --ncpu=2 --config=/usr/local/codis/config/proxy.conf --log=/usr/localcodis/log/proxy.log --log-level=WARN &
 
-                1.5 查看服务进程和端口：
+				1.5 查看服务进程和端口：
 					# netstat -lntp|grep codis-proxy
 					tcp        0      0 0.0.0.0:19000           0.0.0.0:*               LISTEN      12931/codis-proxy
 					tcp6       0      0 :::11080                :::*                    LISTEN      12931/codis-proxy
@@ -327,53 +327,54 @@ Codis分布式集群架构图：
                      本测试环境搭建两个]
 
                 1、拷贝程序：
-                   # cd /usr/local/codis/
-				   # cp -fr src/github.com/CodisLabs/codis/extern/redis-3.2.8/src/redis-sentinel /usr/local/codis/bin/
+					# cd /usr/local/codis/
+					# cp -fr src/github.com/CodisLabs/codis/extern/redis-3.2.8/src/redis-sentinel /usr/local/codis/bin/
 
                 2、拷贝配置：
-                   # cd usr/local/codis/
-				   # cp -fr src/github.com/CodisLabs/codis/extern/redis-3.2.8/sentinel.conf /usr/local/codis/config/
+					# cd usr/local/codis/
+					# cp -fr src/github.com/CodisLabs/codis/extern/redis-3.2.8/sentinel.conf /usr/local/codis/config/
 
                 3、修改配置：
-                   # mkdir /usr/local/codis/data/
-				   # cd /usr/local/codis/config/
-                   # vim sentinel.conf
+					# mkdir /usr/local/codis/data/
+					# cd /usr/local/codis/config/
+					# vim sentinel.conf
 					bind 0.0.0.0 
 					protected-mode no 
 					port 26379 
 					dir "/usr/local/codis/data/"
-                    备注：其他结点的配置与此一致。
+					备注：其他结点的配置与此一致。
 
                 4、启动Redis-sentinel：
-                   # cd /usr/local/codis/bin
-                   # nohup ./redis-sentinel /usr/local/codis/config/sentinel.conf &
+					# cd /usr/local/codis/bin
+					# nohup ./redis-sentinel /usr/local/codis/config/sentinel.conf &
 
                 5、查看服务进程和端口号
-                   # netstat -lntp|grep redis-sentine
+					# netstat -lntp|grep redis-sentine
 					tcp        0      0 0.0.0.0:26379           0.0.0.0:*               LISTEN      11866/redis-sentine
 
 #### 部署codis-fe服务 集群管理界面
 
-              注意：[需要和codis-dashboard搭建在同一台服务器上，搭建在10.0.0.22]
+		注意：[需要和codis-dashboard搭建在同一台服务器上，搭建在10.0.0.22]
               
 				1、生成配置文件：
-				   # cd /usr/local/codis/bin
-                   # ./codis-amdin - -dashboard-list --zookeeper=10.0.0.21:2181 | tee /usr/local/codis/config/codis.json
-				   [ 
-					{ 
-					“name”:”codis-fx”, 
-					“dashboard”:10.0.0.22:18087” 
-					} 
+					# cd /usr/local/codis/bin
+					# ./codis-amdin - -dashboard-list --zookeeper=10.0.0.21:2181 | tee /usr/local/codis/config/codis.json
+					[ 
+						{ 
+							“name”:”codis-fx”, 
+							“dashboard”:10.0.0.22:18087” 
+						} 
 					]
 
-                2、启动codis-fe：
-				   # nohup ./codis-fe --ncpu=2 --log=/usr/local/codis/log/fe.log --log-level=WARN --dashboard-list=/usr/local/codis/config/codis.json --listen=0.0.0.0:18090 &
+				2、启动codis-fe：
+					# nohup ./codis-fe --ncpu=2 --log=/usr/local/codis/log/fe.log --log-level=WARN --dashboard-list=/usr/local/codis/config/codis.json --listen=0.0.0.0:18090 &
 
-                3、查看服务进程和端口
-				   # netstat -lntp|grep codis-fe
+				3、查看服务进程和端口
+					# netstat -lntp|grep codis-fe
 					tcp6       0      0 :::18090                :::*                    LISTEN      12771/codis-fe
 
 
 #### 至此codis集群搭建完毕：
-			  打开浏览器，输入10.0.0.22:18090便可看到codis集群的监控界面：
-              链接codis操作redis： redis-cli -h 10.0.0.21 -p 19000 -a 56789
+				打开浏览器，输入10.0.0.22:18090便可看到codis集群的监控界面：
+				codis-proxy操作redis： redis-cli -h 10.0.0.21 -p 19000 -a 56789
+                直接操作redis节点： redis-cli -h 10.0.0.21 -p 6379 -a 123456
