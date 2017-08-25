@@ -64,13 +64,11 @@ Codis分布式集群架构图：
 					# cd /usr/local/src/
                     # wget https://codeload.github.com/CodisLabs/codis/zip/release3.2
                2、 解压 codis代码压缩包：
-					# mkdir -p /usr/local/codis/src/github.com/CodisLabs
                     # unzip codis-release3.2.zip
-                    # mv /usr/local/src/codis-release3.2 /usr/local/codis/src/github.com/CodisLabs/
-                    # cd /usr/local/codis/src/github.com/CodisLabs/
-					# ln -s codis-release3.2 codis
+                    # mv /usr/local/codis/src/codis-release3.2 /usr/local/
+                    # ln -s /usr/local/codis/codis-release3.2 /usr/local/codis
                3、 编译
-                    # cd /usr/local/codis/src/github.com/CodisLabs/codis
+                    # cd /usr/local/codis/
                     # make 
        		   4、 查看脚本和命令：
 					# ll admin/
@@ -97,12 +95,7 @@ Codis分布式集群架构图：
 					-rwxr-xr-x 1 root staff  5501208 8月  24 14:58 redis-sentinel
 					-rw-r--r-- 1 root staff       96 8月  24 13:23 version
 					root@codis1:/usr/local/codis/src/github.com/CodisLabs/codis# 
-
-         		5、拷贝codis程序：
-					# mkdir -p /usr/local/codis/{bin,config,log}
-					# cp -fr /usr/local/codis/src/github.com/CodisLabs/codis/bin/* /usr/local/codis/bin/
-					# cp -fr /usr/local/codis/src/github.com/CodisLabs/codis/config/* /usr/local/codis/config/
-
+         
  
 #### 部署zookeeper服务：[10.0.0.21]
 
@@ -263,12 +256,12 @@ Codis分布式集群架构图：
 				
                 1.1、生成codis-dashboard的配置文件：
 					# cd /usr/local/codis/bin/
-                    # ./codis-dashboard --default-config | tee /usr/local/codis/config/dashboard.conf 
+                    # ./codis-dashboard --default-conifg | tee /usr/local/codis/conf/dashboard.conf 
 
                 1.2  修改配置文件：
 					# vim ../conf/dashboard.conf
                     coordinator_name = "zookeeper" # 外部存储类型 
-					coordinator_addr = "10.0.0.21:2181,10.0.0.21:2182,10.0.0.21:2183" # 外部存储IP列表
+					coordinator_addr = "10.0.0.21:2181,10.0.0.21:2181,10.0.0.21:2181" # 外部存储IP列表
 					
 					product_name = "codis-fx" # 项目名称 
 					product_auth = “123456” # 集群密码（注意:需要与redis配置中的requirepass保持一致）
@@ -278,8 +271,8 @@ Codis分布式集群架构图：
                 1.3 为了防止出现dashboard监控页面中OPS始终为0的现象，需要将各proxy的IP和主机名写到hosts文件中 [host文件互相解析主机名]
 
                 1.4 启动codis-dashboard
-					# cd /usr/local/codis/bin/
-                    # nohup ./codis-dashboard --ncpu=2 --config=/usr/local/codis/config/dashboard.conf --log=/usr/local/codis/log/dashboard.log --log-level=WARN &
+					# cd usr/local/codis/bin/
+                    # nohup ./codis-dashboard --ncpu=2 --config=/usr/local/codis/conf/dashboard.conf --log=/usr/local/codis/log/dashboard.log - -log-level=WARN &
                     如果想关闭dashboard服务，可执行：
                     #./codis-admin --dashboard=10.0.0.22:18080 –auth=123456 --shutdown
 
@@ -291,10 +284,10 @@ Codis分布式集群架构图：
 
                 1.1、生成codis-dashboard的配置文件：
 					# cd /usr/local/codis/bin/
-                    # ./codis-proxy --default-config | tee /usr/local/codis/config/proxy.conf 
+                    # ./codis-proxy - -default-conifg | tee /usr/local/codis/conf/proxy.conf 
 
                 1.2  修改配置文件：
-					# vim ../config/proxy.conf 
+					# vim ../conf/proxy.conf 
 					product_name = "codis-fx" # 设置项目名 
 					product_auth = "123456" # 设置登录dashboard的密码（注意：与redis中requirepass一致）
 					
@@ -307,12 +300,12 @@ Codis分布式集群架构图：
 					proxy_addr = "0.0.0.0:19000" #绑定端口（Redis客户端连接此端口） 
 					# 外部存储 
 					jodis_name = "zookeeper" # 外部存储类型 
-					jodis_addr = "10.0.0.21:2181,10.0.0.21:2182,10.0.0.21:2183" # 外部存储列表 
+					jodis_addr = "10.0.0.21:2181,10.0.0.21:2181,10.0.0.21:2181" # 外部存储列表 
 					jodis_timeout = “20s
 
                 1.4 启动codis-proxy
 					# cd usr/local/codis/bin/
-                    # nohup ./codis-proxy --ncpu=2 --config=/usr/local/codis/config/dashboard.conf --log=/usr/localcodis/log/dashboard.log --log-level=WARN &
+                    # nohup ./codis-proxy --ncpu=2 - -config=/usr/local/codis/conf/dashboard.conf --log=/usr/localcodis/log/dashboard.log - -log-level=WARN &
 
                 1.5 查看服务进程和端口：
 					# netstat -lntp|grep codis-proxy
