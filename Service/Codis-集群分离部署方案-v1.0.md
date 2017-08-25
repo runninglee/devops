@@ -178,83 +178,83 @@ Codis分布式集群架构图：
 				1.2 修改多实例配置文件参数： 
 					# vim redis_6379.conf 
 					# 部分关键参数
-
+					
 					bind 0.0.0.0 -------------- IP
-
+					
 					port 6379    -------------- 端口
-
-
+					
+					
 					pidfile "/tmp/redis_6379.pid" ------------- pid
-
+					
 					logfile "/tmp/redis_6379.log" -------------- 日志
-
+					
 					databases 16                  -------------- db数量可修改更多
-
+					
 					save 900 1                    -------------- 持久化rdb
 					save 300 10
 					save 60 10000
-
+					
 					dbfilename "dump_6379.rdb"    -------------- 持久化rdb文件
-
+					
 					dir "/usr/local/codis-release3.2"  -------------codis程序主目录
-
+					
 					masterauth "123456"           -------------- 主从同步密码
-
+					
 					slave-read-only yes           -------------- 作为从库后只读
-
+					
 					requirepass "123456"          -------------- 客户端访问redis服务密码
-
+					
 					maxmemory 1g                  -------------- 最大内存阈值
-
+					
 					appendonly yes                -------------- aof持久化
 					appendfilename "appendonly_6379.aof" ------- aof持久化文件
 					appendfsync everysec
-
+					
 					# vim redis_6381.conf 
 					# 部分关键参数
-
+					
 					bind 0.0.0.0 -------------- IP
-
+					
 					port 6381    -------------- 端口
-
-
+					
+					
 					pidfile "/tmp/redis_6381.pid" ------------- pid
-
+					
 					logfile "/tmp/redis_6381.log" -------------- 日志
-
+					
 					databases 16                  -------------- db数量可修改更多
-
+					
 					save 900 1                    -------------- 持久化rdb
 					save 300 10
 					save 60 10000
-
+					
 					dbfilename "dump_6379.rdb"    -------------- 持久化rdb文件
-
+					
 					dir "/usr/local/codis-release3.2"  -------------codis程序主目录
-
+					
 					masterauth "123456"           -------------- 主从同步密码
-
+					
 					slave-read-only yes           -------------- 作为从库后只读
-
+					
 					requirepass "123456"          -------------- 客户端访问redis服务密码
-
+					
 					maxmemory 1g                  -------------- 最大内存阈值
-
+					
 					appendonly yes                -------------- aof持久化
 					appendfilename "appendonly_6379.aof" ------- aof持久化文件
 					appendfsync everysec
 
 				1.3 启动codis-server服务
-					
+
 					一、10.0.0.21:
-						# cd /usr/local/codis
-                        # ./bin/codis-server config/redis_6379.conf 
-                        # ./bin/codis-server config/redis_6381.conf 
-                    二、10.0.0.22：
 						# cd /usr/local/codis
 						# ./bin/codis-server config/redis_6379.conf 
 						# ./bin/codis-server config/redis_6381.conf 
-                    三、查看服务启动进程及端口：
+					二、10.0.0.22：
+						# cd /usr/local/codis
+						# ./bin/codis-server config/redis_6379.conf 
+						# ./bin/codis-server config/redis_6381.conf 
+					三、查看服务启动进程及端口：
 						# netstat -lntp|grep codis-server
 						tcp        0      0 0.0.0.0:6379            0.0.0.0:*               LISTEN      45557/codis-server 
 						tcp        0      0 0.0.0.0:6381            0.0.0.0:*               LISTEN      35399/codis-server 
@@ -263,61 +263,61 @@ Codis分布式集群架构图：
 				
 				1.1、生成codis-dashboard的配置文件：
 					# cd /usr/local/codis/bin/
-                    # ./codis-dashboard --default-config | tee /usr/local/codis/config/dashboard.conf 
-
+					# ./codis-dashboard --default-config | tee /usr/local/codis/config/dashboard.conf 
+					
 				1.2  修改配置文件：
 					# vim ../conf/dashboard.conf
-                    coordinator_name = "zookeeper" # 外部存储类型 
+					coordinator_name = "zookeeper" # 外部存储类型 
 					coordinator_addr = "10.0.0.21:2181,10.0.0.21:2182,10.0.0.21:2183" # 外部存储IP列表
-					
+				
 					product_name = "codis-fx" # 项目名称 
 					product_auth = “123456” # 集群密码（注意:需要与redis配置中的requirepass保持一致）
 					
 					admin_addr = "0.0.0.0:18080" # RESTful API 端口
-
+				
 				1.3 为了防止出现dashboard监控页面中OPS始终为0的现象，需要将各proxy的IP和主机名写到hosts文件中 [host文件互相解析主机名]
-
+				
 				1.4 启动codis-dashboard
 					# cd /usr/local/codis/bin/
 					# nohup ./codis-dashboard --ncpu=2 --config=/usr/local/codis/config/dashboard.conf --log=/usr/local/codis/log/dashboard.log --log-level=WARN &
 					如果想关闭dashboard服务，可执行：
 					#./codis-admin --dashboard=10.0.0.22:18080 –auth=123456 --shutdown
-
+				
 				1.5 查看服务进程和端口：
 					netstat -lntp|grep codis-dashboa
 					tcp6       0      0 :::18080                :::*                    LISTEN      11266/codis-dashboa
 
 #### 部署codis-proxy服务[两台服务器上都搭建此服务(配置文件相同)，可配合keepalived做高可用代理，也可此代理前端用haproxy做负载均衡]
 
-				1.1、生成codis-dashboard的配置文件：
-					# cd /usr/local/codis/bin/
-                    # ./codis-proxy --default-config | tee /usr/local/codis/config/proxy.conf 
-
-				1.2  修改配置文件：
-					# vim ../config/proxy.conf 
-					product_name = "codis-fx" # 设置项目名 
-					product_auth = "123456" # 设置登录dashboard的密码（注意：与redis中requirepass一致）
-					
-					session_auth = "56789" # Redis客户端的登录密码（注意：与redis中requirepass不一致） 
-					# Set bind address for admin(rpc), tcp only. 
-					admin_addr = "0.0.0.0:11080" 
-					# Set bind address for proxy, proto_type can be “tcp”,”tcp4”, “tcp6”, “unix” 
-					or “unixpacket”. 
-					proto_type = “tcp4” 
-					proxy_addr = "0.0.0.0:19000" #绑定端口（Redis客户端连接此端口） 
-					# 外部存储 
-					jodis_name = "zookeeper" # 外部存储类型 
-					jodis_addr = "10.0.0.21:2181,10.0.0.21:2182,10.0.0.21:2183" # 外部存储列表 
-					jodis_timeout = “20s
-
-				1.4 启动codis-proxy
-					# cd usr/local/codis/bin/
-                    # nohup ./codis-proxy --ncpu=2 --config=/usr/local/codis/config/proxy.conf --log=/usr/localcodis/log/proxy.log --log-level=WARN &
-
-				1.5 查看服务进程和端口：
-					# netstat -lntp|grep codis-proxy
-					tcp        0      0 0.0.0.0:19000           0.0.0.0:*               LISTEN      12931/codis-proxy
-					tcp6       0      0 :::11080                :::*                    LISTEN      12931/codis-proxy
+			1.1、生成codis-proxy的配置文件：
+				# cd /usr/local/codis/bin/
+			    # ./codis-proxy --default-config | tee /usr/local/codis/config/proxy.conf 
+			
+			1.2  修改配置文件：
+				# vim ../config/proxy.conf 
+				product_name = "codis-fx" # 设置项目名 
+				product_auth = "123456" # 设置登录dashboard的密码（注意：与redis中requirepass一致）
+				
+				session_auth = "56789" # Redis客户端的登录密码（注意：与redis中requirepass不一致） 
+				# Set bind address for admin(rpc), tcp only. 
+				admin_addr = "0.0.0.0:11080" 
+				# Set bind address for proxy, proto_type can be “tcp”,”tcp4”, “tcp6”, “unix” 
+				or “unixpacket”. 
+				proto_type = “tcp4” 
+				proxy_addr = "0.0.0.0:19000" #绑定端口（Redis客户端连接此端口） 
+				# 外部存储 
+				jodis_name = "zookeeper" # 外部存储类型 
+				jodis_addr = "10.0.0.21:2181,10.0.0.21:2182,10.0.0.21:2183" # 外部存储列表 
+				jodis_timeout = “20s
+			
+			1.4 启动codis-proxy
+				# cd usr/local/codis/bin/
+				# nohup ./codis-proxy --ncpu=2 --config=/usr/local/codis/config/proxy.conf --log=/usr/localcodis/log/proxy.log --log-level=WARN &
+			
+			1.5 查看服务进程和端口：
+				# netstat -lntp|grep codis-proxy
+				tcp        0      0 0.0.0.0:19000           0.0.0.0:*               LISTEN      12931/codis-proxy
+				tcp6       0      0 :::11080                :::*                    LISTEN      12931/codis-proxy
 
 #### 部署Redis-sentinel服务：
                Redis官方推荐的高可用性(HA)解决方案。它可以实现对Redis的监控、通知、自动故障转移：
@@ -326,55 +326,52 @@ Codis分布式集群架构图：
                      所以为了高可用，生产环境许搭建三个为一集群
                      本测试环境搭建两个]
 
-                1、拷贝程序：
-					# cd /usr/local/codis/
-					# cp -fr src/github.com/CodisLabs/codis/extern/redis-3.2.8/src/redis-sentinel /usr/local/codis/bin/
-
-                2、拷贝配置：
-					# cd usr/local/codis/
-					# cp -fr src/github.com/CodisLabs/codis/extern/redis-3.2.8/sentinel.conf /usr/local/codis/config/
-
-                3、修改配置：
-					# mkdir /usr/local/codis/data/
-					# cd /usr/local/codis/config/
-					# vim sentinel.conf
-					bind 0.0.0.0 
-					protected-mode no 
-					port 26379 
-					dir "/usr/local/codis/data/"
-					备注：其他结点的配置与此一致。
-
-                4、启动Redis-sentinel：
-					# cd /usr/local/codis/bin
-					# nohup ./redis-sentinel /usr/local/codis/config/sentinel.conf &
-
-                5、查看服务进程和端口号
-					# netstat -lntp|grep redis-sentine
-					tcp        0      0 0.0.0.0:26379           0.0.0.0:*               LISTEN      11866/redis-sentine
+			1、拷贝程序：
+				 # cd /usr/local/codis/
+				 # cp -fr src/github.com/CodisLabs/codis/extern/redis-3.2.8/src/redis-sentinel /usr/local/codis/bin/
+			2、拷贝配置：
+				# cd usr/local/codis/
+				# cp -fr src/github.com/CodisLabs/codis/extern/redis-3.2.8/sentinel.conf /usr/local/codis/config/
+			3、修改配置：
+				# mkdir /usr/local/codis/data/
+				# cd /usr/local/codis/config/
+				# vim sentinel.conf
+				bind 0.0.0.0 
+				protected-mode no 
+				port 26379 
+				dir "/usr/local/codis/data/"
+				备注：其他结点的配置与此一致。
+			
+			4、启动Redis-sentinel：
+				# cd /usr/local/codis/bin
+				# nohup ./redis-sentinel /usr/local/codis/config/sentinel.conf &
+			
+			5、查看服务进程和端口号
+				# netstat -lntp|grep redis-sentine
+				tcp        0      0 0.0.0.0:26379           0.0.0.0:*               LISTEN      11866/redis-sentine
 
 #### 部署codis-fe服务 集群管理界面
 
-		注意：[需要和codis-dashboard搭建在同一台服务器上，搭建在10.0.0.22]
-              
-				1、生成配置文件：
-					# cd /usr/local/codis/bin
-					# ./codis-amdin - -dashboard-list --zookeeper=10.0.0.21:2181 | tee /usr/local/codis/config/codis.json
-					[ 
-						{ 
-							“name”:”codis-fx”, 
-							“dashboard”:10.0.0.22:18087” 
-						} 
-					]
-
-				2、启动codis-fe：
-					# nohup ./codis-fe --ncpu=2 --log=/usr/local/codis/log/fe.log --log-level=WARN --dashboard-list=/usr/local/codis/config/codis.json --listen=0.0.0.0:18090 &
-
-				3、查看服务进程和端口
-					# netstat -lntp|grep codis-fe
-					tcp6       0      0 :::18090                :::*                    LISTEN      12771/codis-fe
-
-
+			注意：[需要和codis-dashboard搭建在同一台服务器上，搭建在10.0.0.22]
+			
+			1、生成配置文件：
+				# cd /usr/local/codis/bin
+				# ./codis-amdin - -dashboard-list --zookeeper=10.0.0.21:2181 | tee /usr/local/codis/config/codis.json
+				[ 
+					{ 
+					“name”:”codis-fx”, 
+					“dashboard”:10.0.0.22:18087” 
+					} 
+				]
+			
+			2、启动codis-fe：
+				# nohup ./codis-fe --ncpu=2 --log=/usr/local/codis/log/fe.log --log-level=WARN --dashboard-list=/usr/local/codis/config/codis.json --listen=0.0.0.0:18090 &
+			
+			3、查看服务进程和端口
+				# netstat -lntp|grep codis-fe
+				tcp6       0      0 :::18090                :::*                    LISTEN      12771/codis-fe
+			
+			
 #### 至此codis集群搭建完毕：
-				打开浏览器，输入10.0.0.22:18090便可看到codis集群的监控界面：
-				codis-proxy操作redis： redis-cli -h 10.0.0.21 -p 19000 -a 56789
-                直接操作redis节点： redis-cli -h 10.0.0.21 -p 6379 -a 123456
+			打开浏览器，输入10.0.0.22:18090便可看到codis集群的监控界面：
+			链接codis操作redis： redis-cli -h 10.0.0.21 -p 19000 -a 56789
