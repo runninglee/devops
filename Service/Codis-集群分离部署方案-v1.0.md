@@ -228,7 +228,7 @@ Codis分布式集群架构图：
 					save 300 10
 					save 60 10000
 					
-					dbfilename "dump_6379.rdb"    -------------- 持久化rdb文件
+					dbfilename "dump_6381.rdb"    -------------- 持久化rdb文件
 					
 					dir "/usr/local/codis-release3.2"  -------------codis程序主目录
 					
