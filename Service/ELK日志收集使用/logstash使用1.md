@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # logstash使用 #
+=======
+#logstash使用 #
+>>>>>>> 7b9ca9cd3aa73bd6703e2ed470db96cbd612bc31
 
 ## 1、测试logstash ##
 	
