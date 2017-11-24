@@ -1,5 +1,6 @@
 # logstash使用 #
 
+
 ## 1、测试logstash ##
 	
 	[root@linux-node01 bin]# ./logstash -e 'input{ stdin{} } output{ stdout { codec => rubydebug }}'
