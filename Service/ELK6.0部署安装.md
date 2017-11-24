@@ -67,7 +67,7 @@
 	/etc/init.d/kibana start
 
 ### 五、使用elastic用户进入kibana 更改用户密码或者创建对应角色的用户 ###
-
+    ...
 	
 # x-pack高级功能需要购买官方的高级别的 xpack license,可以免费注册1年使用限制的basic license。 #
 
