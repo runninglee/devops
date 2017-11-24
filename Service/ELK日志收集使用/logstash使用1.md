@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 # logstash使用 #
+=======
+<<<<<<< HEAD
+# logstash使用 #
+=======
+#logstash使用 #
+>>>>>>> 7b9ca9cd3aa73bd6703e2ed470db96cbd612bc31
+>>>>>>> 1624a594c7cc9c3d65e1301209a5dd5913f00fce
 
 ## 1、测试logstash ##
 	
