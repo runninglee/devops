@@ -41,7 +41,7 @@
 	root@es02:/usr/share/elasticsearch# bin/x-pack/setup-passwords auto	---------- 5.x 版本默认会有elastic superuser用户 但6.x 使用此命令初始化用户
 
 ### 七、记住elastic，kibana，logstash 用户和密码 ###
-	
+    ...
 
 # 安装kibana： #
 
@@ -55,7 +55,7 @@
 	/usr/share/kibana
 	root@es01:/usr/share/kibana# bin/kibana-plugin install file:///tmp/x-pack-6.0.0.zip
 	
-### 二、配置： ###
+### 三、配置： ###
 	root@kibana:~# grep "^[a-z]" /etc/kibana/kibana.yml 
 	server.port: 5601	------------------------------------------ 端口
 	server.host: "0.0.0.0"	-------------------------------------- ip bind 绑定
