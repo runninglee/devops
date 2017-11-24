@@ -14,7 +14,7 @@
 	apt-get install apt-transport-https
 	echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main"| sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
 	
-### 三、安装es： ###
+### 三、安装ES： ###
 	apt-get update && apt-get install elasticsearch
 
 ### 三、安装x-pack: ###
@@ -23,7 +23,7 @@
 	/usr/share/elasticsearch
 	root@es01:/usr/share/elasticsearch# bin/elasticsearch-plugin install file:///tmp/x-pack-6.0.0.zip
 	
-### 四、修改es参数： ###
+### 四、修改ES参数： ###
 	root@es02:~# grep "^[a-z]" /etc/elasticsearch/elasticsearch.yml 
 	cluster.name: fx-erp	-------------------------------------- 集群名称
 	node.name: es02		---------------------------------------------- 节点名称，与主机名一样就行
@@ -44,6 +44,7 @@
 	
 
 # 安装kibana： #
+
 
 ### 一、安装： ###
 	apt-get install kibana
@@ -66,6 +67,7 @@
 	/etc/init.d/kibana start
 
 ### 五、使用elastic用户进入kibana 更改用户密码或者创建对应角色的用户 ###
+
 	
 # x-pack高级功能需要购买官方的高级别的 xpack license,可以免费注册1年使用限制的basic license。 #
 
