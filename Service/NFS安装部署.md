@@ -49,7 +49,7 @@
 	/home/erp/wangwei/erp 10.0.0.0/24
 	
 	使用mount命令挂载nfs文件系统
-	mount -t nfs 10.0.0.11:/home/erp/wangwei/erp /home/erp/wangwei/erp -o proto=tcp -o nol
+	mount -t nfs 10.0.0.11:/home/erp/wangwei/erp /home/erp/wangwei/erp -o proto=tcp -o nolock
 	
 	
 	
