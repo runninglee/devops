@@ -12,3 +12,10 @@ https://www.rabbitmq.com/getstarted.html
 https://github.com/php-amqplib/php-amqplib
 
 
+秒杀思路：
+1. 请求入Redis库限流
+2. 监听Redis队列及时持久化到数据库
+3. 秒杀业务处理
+
+
+
