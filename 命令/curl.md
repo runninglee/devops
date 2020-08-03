@@ -992,6 +992,14 @@ curl -O URL /path/filename
 ```
 ```
 
+安装
+
+```shell script
+
+curl -sS https://getcomposer.org/installer | php
+
+```
+
 ## History
 * man curl命令
 
